@@ -42,7 +42,7 @@ public class SignIn extends AppCompatActivity {
     }
     private void signInUser(String phone,String password) {
         final ProgressDialog mDialog = new ProgressDialog(SignIn.this);
-        mDialog.setMessage("Xin vui lòng đợi");
+        mDialog.setMessage("Vui lòng đợi...");
         mDialog.show();
 
         final String localPhone = phone;

@@ -52,6 +52,7 @@
             android:layout_marginTop="10dp"
             android:gravity="center_vertical"
             android:text="Nhớ tài khoản"
+            android:textSize="18dp"
             android:textColor="@android:color/black" />
 
         <Button

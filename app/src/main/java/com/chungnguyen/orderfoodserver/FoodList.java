@@ -125,7 +125,7 @@ public class FoodList extends AppCompatActivity {
                 dialog.dismiss();
                 if (newFood!=null){
                     foodList.push().setValue(newFood);
-                    Snackbar.make(rootLayout,"Mục mới"+newFood.getName()+"đã thêm xong",Snackbar.LENGTH_SHORT).show();
+                    Snackbar.make(rootLayout,"Danh mục mới "+newFood.getName()+" được thêm thành công",Snackbar.LENGTH_SHORT).show();
                 }
 
             }
@@ -153,7 +153,7 @@ public class FoodList extends AppCompatActivity {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                             mDialog.dismiss();
-                            Toast.makeText(FoodList.this, "Đã tải xong", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(FoodList.this, "Đã tải xong ", Toast.LENGTH_SHORT).show();
                             imageFolder.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                                 @Override
                                 public void onSuccess(Uri uri) {
@@ -172,12 +172,13 @@ public class FoodList extends AppCompatActivity {
                 public void onFailure(@NonNull Exception e) {
                     mDialog.dismiss();
                     Toast.makeText(FoodList.this, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
+                    System.out.println(e.getMessage());
                 }
             }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
                     double progress = (100.0*taskSnapshot.getBytesTransferred()/taskSnapshot.getTotalByteCount() );
-                    mDialog.setMessage("Đã tải xong"+progress+"%");
+                    mDialog.setMessage("Đã tải "+progress+"%");
                 }
             });
         }
@@ -236,7 +237,7 @@ public class FoodList extends AppCompatActivity {
 
     private void showUpdateDialog(final String key, final Food item) {
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(FoodList.this);
-        alertDialog.setTitle("Sửa tài liệu");
+        alertDialog.setTitle("Sửa thông tin");
         alertDialog.setMessage("Hãy điền đầy đủ thông tin");
 
         LayoutInflater inflater =this.getLayoutInflater();
@@ -305,7 +306,7 @@ public class FoodList extends AppCompatActivity {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                             mDialog.dismiss();
-                            Toast.makeText(FoodList.this, "Đã tải xong", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(FoodList.this, "Đã tải xong ", Toast.LENGTH_SHORT).show();
                             imageFolder.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                                 @Override
                                 public void onSuccess(Uri uri) {
@@ -323,7 +324,7 @@ public class FoodList extends AppCompatActivity {
                 @Override
                 public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
                     double progress = (100.0*taskSnapshot.getBytesTransferred()/taskSnapshot.getTotalByteCount() );
-                    mDialog.setMessage("Đã tải xong"+progress+"%");
+                    mDialog.setMessage("Đã tải xong "+progress+"%");
                 }
             });
         }

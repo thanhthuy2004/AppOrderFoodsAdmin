@@ -58,7 +58,7 @@ public class OrderStatus extends AppCompatActivity {
             @Override
             protected void populateViewHolder(OrderViewHolder viewHolder, Request model, int position) {
 
-                viewHolder.txtOrderId.setText("Id đơn hàng : "+adapter.getRef(position).getKey());
+                viewHolder.txtOrderId.setText("ID đơn hàng : "+adapter.getRef(position).getKey());
                 viewHolder.txtOrderStatus.setText("Trạng thái : "+Common.convertCodeToStatus(model.getStatus()));
                 viewHolder.txtOrderPhone.setText("SĐT : "+model.getPhone());
                 viewHolder.txtGmail.setText("Địa chỉ : "+model.getAddress());
@@ -106,7 +106,7 @@ public class OrderStatus extends AppCompatActivity {
         final View view = inflater.inflate(R.layout.update_order_layout,null);
 
         spinner = (MaterialSpinner)view.findViewById(R.id.statusSpiner);
-        spinner.setItems("Đã đặt hàng","Đang gửi thức ăn","Đã gửi thức ăn");
+        spinner.setItems("Đã đặt hàng","Đang giao","Giao thành công");
         alertDialog.setView(view);
 
         final String localKey = key;

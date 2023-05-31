@@ -13,20 +13,25 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:weightSum="1">
+
         <ImageView
             android:id="@+id/sharedocument"
-            android:layout_marginBottom="20sp"
-            android:src="@drawable/logoo"
             android:layout_width="match_parent"
-            android:layout_height="108dp" />
-        <TextView
-            android:textSize="20dp"
+            android:layout_height="250dp"
+            android:layout_marginVertical="20dp"
+            android:src="@drawable/logo2"/>
 
-            android:textColor="@android:color/white"
+        <TextView
             android:id="@+id/txtSlogan"
             android:layout_gravity="center"
-            android:layout_width="280dp"
-            android:layout_height="wrap_content" />
+            android:text="@string/app_slogan"
+            android:textColor="@color/overlayBackground"
+            android:textSize="34dp"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:fontFamily="@font/lobster"
+            android:layout_width="360dp"
+            android:layout_height="wrap_content"/>
 
     </LinearLayout>
     <LinearLayout
@@ -46,7 +51,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
-
             />
 
     </LinearLayout>
