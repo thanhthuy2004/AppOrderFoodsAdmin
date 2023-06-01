@@ -36,7 +36,6 @@ public class OrderStatus extends AppCompatActivity {
         db = FirebaseDatabase.getInstance();
         requests = db.getReference("Requests");
 
-
         recyclerView =  findViewById(R.id.listOrder);
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(this);

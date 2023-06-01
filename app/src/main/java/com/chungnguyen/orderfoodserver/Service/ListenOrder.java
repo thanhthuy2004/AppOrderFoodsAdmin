@@ -74,7 +74,7 @@ public class ListenOrder extends Service implements ChildEventListener {
         NotificationCompat.Builder builder = new NotificationCompat.Builder(getBaseContext(), "notice");
         builder.setAutoCancel(true)
                 .setDefaults(Notification.DEFAULT_ALL)
-                .setContentTitle("OrderFood thông báo!")
+                .setContentTitle("OrderFoodAdmin thông báo!")
                 .setTicker("Share Document")
                 .setContentInfo("Đơn hàng mới")
                 .setContentText("Bạn có đơn hàng mới #" + key)
