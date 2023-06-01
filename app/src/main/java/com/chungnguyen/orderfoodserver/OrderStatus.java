@@ -1,6 +1,7 @@
 package com.chungnguyen.orderfoodserver;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,18 +14,13 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.chungnguyen.orderfoodserver.Common.Common;
-import com.chungnguyen.orderfoodserver.Common.OrderAdapter;
 import com.chungnguyen.orderfoodserver.Interface.ItemClickListener;
-import com.chungnguyen.orderfoodserver.Model.Food;
-import com.chungnguyen.orderfoodserver.Model.Order;
 import com.chungnguyen.orderfoodserver.Model.Request;
 import com.chungnguyen.orderfoodserver.ViewHolder.OrderViewHolder;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.jaredrummler.materialspinner.MaterialSpinner;
-
-import java.util.List;
 
 public class OrderStatus extends AppCompatActivity {
     RecyclerView recyclerView;
@@ -56,7 +52,7 @@ public class OrderStatus extends AppCompatActivity {
                 requests
         ) {
             @Override
-            protected void populateViewHolder(OrderViewHolder viewHolder, Request model, int position) {
+            protected void populateViewHolder(OrderViewHolder viewHolder, final Request model, int position) {
 
                 viewHolder.txtOrderId.setText("ID đơn hàng : "+adapter.getRef(position).getKey());
                 viewHolder.txtOrderStatus.setText("Trạng thái : "+Common.convertCodeToStatus(model.getStatus()));
@@ -64,8 +60,6 @@ public class OrderStatus extends AppCompatActivity {
                 viewHolder.txtGmail.setText("Địa chỉ : "+model.getAddress());
                 viewHolder.txtTotal.setText("Giá tiền : "+model.getTotal());
 
-                OrderAdapter orderAdapter = new OrderAdapter(model.getFoods() , getApplicationContext());
-                viewHolder.lvOrders.setAdapter(orderAdapter);
 
                 Log.d("OrderStatus", "populateViewHolder:  " + model.getFoods().size());
 
@@ -73,7 +67,10 @@ public class OrderStatus extends AppCompatActivity {
                 viewHolder.setItemClickListener(new ItemClickListener() {
                     @Override
                     public void OnClick(View view, int position, boolean isLongClick) {
-
+                        Intent orderDetail = new Intent(OrderStatus.this, OrderDetail.class);
+                        Common.currentRequest = model;
+                        orderDetail.putExtra("OrderId", adapter.getRef(position).getKey());
+                        startActivity(orderDetail);
                     }
                 });
 

@@ -14,13 +14,10 @@ import com.chungnguyen.orderfoodserver.R;
 
 
 public class OrderViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener,View.OnCreateContextMenuListener {
-    public TextView txtOrderId,txtOrderStatus,txtOrderPhone,txtGmail, txtTotal,txtFood;
-    public ListView lvOrders;
+    public TextView txtOrderId,txtOrderStatus,txtOrderPhone,txtGmail, txtTotal;
     private ItemClickListener itemClickListener;
     Button btnUpdate;
-    public void setItemClickListener(ItemClickListener itemClickListener) {
-        this.itemClickListener = itemClickListener;
-    }
+
 
     public OrderViewHolder(View itemView) {
         super(itemView);
@@ -29,14 +26,14 @@ public class OrderViewHolder extends RecyclerView.ViewHolder implements View.OnC
         txtOrderPhone = itemView.findViewById(R.id.order_phone);
         txtGmail = itemView.findViewById(R.id.order_gmail);
         txtTotal = itemView.findViewById(R.id.order_total);
-        lvOrders = itemView.findViewById(R.id.lv_orders);
-        btnUpdate=itemView.findViewById(R.id.btnUpdate);
-
+        btnUpdate=itemView.findViewById(R.id.btnUpdateOrder);
 
         itemView.setOnClickListener(this);
         btnUpdate.setOnCreateContextMenuListener(this);
     }
-
+    public void setItemClickListener(ItemClickListener itemClickListener) {
+        this.itemClickListener = itemClickListener;
+    }
     @Override
     public void onClick(View view) {
         itemClickListener.OnClick(view,getAdapterPosition(),false);
@@ -44,8 +41,10 @@ public class OrderViewHolder extends RecyclerView.ViewHolder implements View.OnC
 
     @Override
     public void onCreateContextMenu(ContextMenu contextMenu, View view, ContextMenu.ContextMenuInfo contextMenuInfo) {
-        contextMenu.setHeaderTitle("Chọn hành động");
+        contextMenu.setHeaderTitle("Tùy chọn");
         contextMenu.add(0,0,getAdapterPosition(), Common.UPDATE);
         contextMenu.add(0,1,getAdapterPosition(),Common.DELETE);
     }
+
+
 }
