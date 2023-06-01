@@ -20,7 +20,6 @@ import com.google.firebase.database.ValueEventListener;
 public class SignIn extends AppCompatActivity {
     EditText edtPhone, edtPassword;
     Button btnSignIn;
-
     FirebaseDatabase db;
     DatabaseReference users;
     @Override

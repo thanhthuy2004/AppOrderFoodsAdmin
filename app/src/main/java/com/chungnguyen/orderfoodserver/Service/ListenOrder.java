@@ -1,13 +1,17 @@
 package com.chungnguyen.orderfoodserver.Service;
 
 import android.app.Notification;
+import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.IBinder;
+
 import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 
 import com.chungnguyen.orderfoodserver.Model.Request;
 import com.chungnguyen.orderfoodserver.OrderStatus;
@@ -48,27 +52,37 @@ public class ListenOrder extends Service implements ChildEventListener {
     @Override
     public void onChildAdded(DataSnapshot dataSnapshot, String s) {
         Request request = dataSnapshot.getValue(Request.class);
-        if (request.getStatus().equals("0")){
-            showNotification(dataSnapshot.getKey(),request);
+        if (request.getStatus().equals("0")) {
+            showNotification(dataSnapshot.getKey(), request);
         }
     }
 
     private void showNotification(String key, Request request) {
         Intent intent = new Intent(getBaseContext(), OrderStatus.class);
-        PendingIntent contentIntent = PendingIntent.getActivity(getBaseContext(),0,intent,0);
+        PendingIntent contentIntent = PendingIntent.getActivity(getBaseContext(), 0, intent, 0);
 
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(getBaseContext());
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            String channelId = "notice";
+            CharSequence channelName = "notice";
+            String channelDescription = "notice";
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            NotificationChannel channel = new NotificationChannel(channelId, channelName, importance);
+            NotificationManager manager = getSystemService(NotificationManager.class);
+            manager.createNotificationChannel(channel);
+        }
+
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(getBaseContext(), "notice");
         builder.setAutoCancel(true)
                 .setDefaults(Notification.DEFAULT_ALL)
-                .setContentTitle("Có thông báo mới")
+                .setContentTitle("OrderFood thông báo!")
                 .setTicker("Share Document")
                 .setContentInfo("Đơn hàng mới")
-                .setContentText("Bạn có đơn hàng mới #"+key)
-                .setSmallIcon(R.drawable.hello)
+                .setContentText("Bạn có đơn hàng mới #" + key)
+                .setSmallIcon(R.mipmap.ic_launcher)
                 .setContentIntent(contentIntent);
-        NotificationManager manager = (NotificationManager)getBaseContext().getSystemService(Context.NOTIFICATION_SERVICE);
-        int randomInt = new Random().nextInt()+1;
-        manager.notify(randomInt,builder.build());
+        NotificationManagerCompat manager = NotificationManagerCompat.from(getBaseContext());
+        int randomInt = new Random().nextInt() + 1;
+        manager.notify(randomInt, builder.build());
     }
 
     @Override

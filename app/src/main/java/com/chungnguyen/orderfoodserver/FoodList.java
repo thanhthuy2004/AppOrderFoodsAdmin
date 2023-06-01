@@ -93,7 +93,7 @@ public class FoodList extends AppCompatActivity {
 
     private void showAddFoodDialog() {
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(FoodList.this);
-        alertDialog.setTitle("Thêm mới ");
+        alertDialog.setTitle("Thêm món ăn mới ");
         alertDialog.setMessage("Hãy điền đầy đủ thông tin");
 
         LayoutInflater inflater =this.getLayoutInflater();
@@ -125,7 +125,7 @@ public class FoodList extends AppCompatActivity {
                 dialog.dismiss();
                 if (newFood!=null){
                     foodList.push().setValue(newFood);
-                    Snackbar.make(rootLayout,"Danh mục mới "+newFood.getName()+" được thêm thành công",Snackbar.LENGTH_SHORT).show();
+                    Snackbar.make(rootLayout,"Món ăn "+newFood.getName()+" vừa được thêm thành công",Snackbar.LENGTH_SHORT).show();
                 }
 
             }
@@ -279,7 +279,7 @@ public class FoodList extends AppCompatActivity {
                 item.setDiscount(edtDiscount.getText().toString());
 
                 foodList.child(key).setValue(item);
-                Snackbar.make(rootLayout,"Mục sửa "+item.getName()+" đã sửa xong",Snackbar.LENGTH_SHORT).show();
+                Snackbar.make(rootLayout,"Cập nhật món "+item.getName()+" thành công",Snackbar.LENGTH_SHORT).show();
 
 
             }

@@ -33,8 +33,12 @@ import com.chungnguyen.orderfoodserver.ViewHolder.MenuViewHolder;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
@@ -111,7 +115,7 @@ public class Home extends AppCompatActivity
 
     private void showDialog() {
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(Home.this);
-        alertDialog.setTitle("Thêm mới mục thức ăn");
+        alertDialog.setTitle("Thêm danh mục mới");
         alertDialog.setMessage("Hãy điền đầy đủ thông tin");
 
         LayoutInflater inflater =this.getLayoutInflater();
@@ -141,7 +145,7 @@ public class Home extends AppCompatActivity
                 dialog.dismiss();
                 if (newCategory!=null){
                     categories.push().setValue(newCategory);
-                    Snackbar.make(drawer,"Thức ăn mới"+newCategory.getName()+"đã thêm xong",Snackbar.LENGTH_SHORT).show();
+                    Snackbar.make(drawer,"Đã thêm "+newCategory.getName()+" thành công",Snackbar.LENGTH_SHORT).show();
                 }
 
             }
@@ -168,7 +172,7 @@ public class Home extends AppCompatActivity
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                             mDialog.dismiss();
-                            Toast.makeText(Home.this, "Đã tải xong", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(Home.this, "Đã tải xong ", Toast.LENGTH_SHORT).show();
                             imageFolder.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                                 @Override
                                 public void onSuccess(Uri uri) {
@@ -186,7 +190,7 @@ public class Home extends AppCompatActivity
                 @Override
                 public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
                     double progress = (100.0*taskSnapshot.getBytesTransferred()/taskSnapshot.getTotalByteCount() );
-                    mDialog.setMessage("Đã tải xong"+progress+"%");
+                    mDialog.setMessage("Đã tải xong "+progress+"%");
                 }
             });
         }
@@ -247,16 +251,12 @@ public class Home extends AppCompatActivity
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.home, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
@@ -304,13 +304,28 @@ public class Home extends AppCompatActivity
     }
 
     private void deleteCategory(String key) {
+        DatabaseReference food = database.getReference("Foods");
+        Query foodInCategory = food.orderByChild("menuId").equalTo(key);
+        foodInCategory.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for(DataSnapshot post: dataSnapshot.getChildren()){
+                    post.getRef().removeValue();
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
         categories.child(key).removeValue();
         Toast.makeText(this, "Đã xóa mục ", Toast.LENGTH_SHORT).show();
     }
 
     private void showUpdateDialog(final String key, final Category item) {
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(Home.this);
-        alertDialog.setTitle("Sửa mục thức ăn");
+        alertDialog.setTitle("Sửa danh mục món ăn");
         alertDialog.setMessage("Hãy điền đầy đủ thông tin");
 
         LayoutInflater inflater =this.getLayoutInflater();
@@ -366,7 +381,7 @@ public class Home extends AppCompatActivity
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                             mDialog.dismiss();
-                            Toast.makeText(Home.this, "Đã tải xong", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(Home.this, "Đã tải xong ", Toast.LENGTH_SHORT).show();
                             imageFolder.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                                 @Override
                                 public void onSuccess(Uri uri) {
@@ -384,7 +399,7 @@ public class Home extends AppCompatActivity
                 @Override
                 public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
                     double progress = (100.0*taskSnapshot.getBytesTransferred()/taskSnapshot.getTotalByteCount() );
-                    mDialog.setMessage("Đã tải xong"+progress+"%");
+                    mDialog.setMessage("Đã tải xong "+progress+"%");
                 }
             });
         }
