@@ -30,7 +30,6 @@
             android:background="@drawable/eddittext_style"
             android:hint="Số điện thoại"
             android:inputType="phone"
-            android:text="0399987074"
             android:textSize="20sp" />
 
         <EditText
@@ -41,7 +40,6 @@
             android:background="@drawable/eddittext_style"
             android:hint="Mật khẩu"
             android:inputType="textPassword"
-            android:text="admin"
             android:textSize="20sp" />
 
         <CheckBox

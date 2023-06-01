@@ -13,7 +13,7 @@ import com.chungnguyen.orderfoodserver.R;
 
 
 public class OrderViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener,View.OnCreateContextMenuListener {
-    public TextView txtOrderId,txtOrderStatus,txtOrderPhone,txtGmail, txtTotal;
+    public TextView txtOrderId,txtOrderStatus,txtOrderPhone,txtGmail, txtTotal, txtDate;
     private ItemClickListener itemClickListener;
     Button btnUpdate;
 
@@ -25,6 +25,7 @@ public class OrderViewHolder extends RecyclerView.ViewHolder implements View.OnC
         txtOrderPhone = itemView.findViewById(R.id.order_phone);
         txtGmail = itemView.findViewById(R.id.order_gmail);
         txtTotal = itemView.findViewById(R.id.order_total);
+        txtDate = itemView.findViewById(R.id.order_date);
         btnUpdate=itemView.findViewById(R.id.btnUpdateOrder);
 
         itemView.setOnClickListener(this);

@@ -27,6 +27,20 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="MissingConstraints" />
 
+
+    <TextView
+        android:id="@+id/order_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:gravity="center_vertical|start"
+        android:text="Date"
+        android:textAllCaps="true"
+        android:textStyle="italic"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/order_id" />
+
     <TextView
         android:id="@+id/order_status"
         android:layout_width="wrap_content"
@@ -39,7 +53,7 @@
         android:textColor="	#ff0000"
         android:textStyle="italic"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/order_id" />
+        app:layout_constraintTop_toBottomOf="@+id/order_date" />
 
     <TextView
         android:id="@+id/order_phone"

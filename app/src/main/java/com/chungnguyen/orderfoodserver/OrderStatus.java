@@ -44,6 +44,11 @@ public class OrderStatus extends AppCompatActivity {
         loadOrder();
     }
     private void loadOrder() {
+
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        layoutManager.setReverseLayout(true); // đảo ngược thứ tự các mục trong danh sách
+        layoutManager.setStackFromEnd(true);
+
         adapter = new FirebaseRecyclerAdapter<Request, OrderViewHolder>(
                 Request.class,
                 R.layout.order_layout,
@@ -54,6 +59,7 @@ public class OrderStatus extends AppCompatActivity {
             protected void populateViewHolder(OrderViewHolder viewHolder, final Request model, int position) {
 
                 viewHolder.txtOrderId.setText("ID đơn hàng : "+adapter.getRef(position).getKey());
+                viewHolder.txtDate.setText("Ngày đặt:  "+ model.getDate());
                 viewHolder.txtOrderStatus.setText("Trạng thái : "+Common.convertCodeToStatus(model.getStatus()));
                 viewHolder.txtOrderPhone.setText("SĐT : "+model.getPhone());
                 viewHolder.txtGmail.setText("Địa chỉ : "+model.getAddress());
@@ -77,6 +83,7 @@ public class OrderStatus extends AppCompatActivity {
         };
         adapter.notifyDataSetChanged();
         recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(layoutManager);
     }
 
     @Override

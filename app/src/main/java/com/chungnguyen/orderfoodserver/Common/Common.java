@@ -3,6 +3,9 @@ package com.chungnguyen.orderfoodserver.Common;
 import com.chungnguyen.orderfoodserver.Model.Request;
 import com.chungnguyen.orderfoodserver.Model.User;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class Common {
     public static User currentUser;
     public static final String UPDATE = "Cập nhật";
@@ -18,5 +21,12 @@ public class Common {
         else
             return "Giao thành công";
 
+    }
+    public static String getDate() {
+        long currentTimeMillis = System.currentTimeMillis();
+        Date date = new Date(currentTimeMillis);
+        SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm");
+        String formattedDateTime = formatter.format(date);
+        return formattedDateTime;
     }
 }
